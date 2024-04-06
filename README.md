@@ -1,6 +1,6 @@
 Equipe:
 
 * Marcos Anthony Rodrigues Cardoso
-* Thiago Rogério de Melo
 * Arthur Jonas de Andrade Silva
+* Thiago Rogério de Melo
 * Cláudio Lucas Dantas da Silva Farias
