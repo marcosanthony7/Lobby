@@ -31,6 +31,7 @@ export default function App() {
             uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
           }}
         />
+        <Text style={[styles.recuperarSenha, { marginBottom: 20 }]}>Esqueceu a senha?</Text>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -66,5 +67,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'gray',
     borderRadius: 10,
+  },
+  recuperarSenha: {
+    fontSize: 15,
+    color: 'blue',
+    alignSelf: 'flex-end',
   },
 });
