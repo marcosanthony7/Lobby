@@ -33,6 +33,9 @@ export default function App() {
         />
         <Text style={[styles.recuperarSenha, { marginBottom: 20 }]}>Esqueceu a senha?</Text>
       </View>
+      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={styles.registrarLink}>Novo? Registrar-se</Text>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -72,5 +75,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'blue',
     alignSelf: 'flex-end',
+  },
+  registrarLink: {
+    fontSize: 15,
+    color: 'blue',
+    alignSelf: 'flex-start',
   },
 });
