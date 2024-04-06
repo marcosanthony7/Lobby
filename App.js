@@ -12,7 +12,7 @@ export default function App() {
       <View style={{ width: '100%' }}>
         <Button title="Logar" color="blue" />
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
         <Image
           style={styles.logo}
           source={{
