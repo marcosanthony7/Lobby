@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Button, Text, TextInput, View } from 'react-native';
 
 export default function App() {
   return (
@@ -9,6 +9,9 @@ export default function App() {
       <TextInput style={styles.input} />
       <Text style={styles.subtitle}>Senha</Text>
       <TextInput style={styles.input} secureTextEntry={true} />
+      <View style={{ width: '100%' }}>
+        <Button title="Logar" color="blue" />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
