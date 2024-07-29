@@ -27,7 +27,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Registrar</Text>
+      <Text style={styles.titulo}>Cadastrar</Text>
       <Text style={styles.subtitulo}>Usuário</Text>
       <TextInput style={styles.input} />
       <Text style={styles.subtitulo}>E-mail</Text>
@@ -58,7 +58,7 @@ export default function App() {
         />
       </View>
       <View>
-        <Text style={styles.registrarLink}>Já possui conta? Logar-se</Text>
+        <Text style={styles.cadastrarLink}>Já possui conta? Logar-se</Text>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 4,
   },
-  registrarLink: {
+  cadastrarLink: {
     width: '100%',
     fontSize: 18,
     color: '#2F80ED',

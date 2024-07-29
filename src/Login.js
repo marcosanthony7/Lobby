@@ -57,7 +57,7 @@ export default function App() {
         <Text style={styles.recuperarSenha}>Esqueceu a senha?</Text>
       </View>
       <View>
-        <Text style={styles.registrarLink}>Novo? Registrar-se</Text>
+        <Text style={styles.cadastrarLink}>Novo? Cadastrar-se</Text>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     fontFamily: 'Nunito_700Bold',
   },
-  registrarLink: {
+  cadastrarLink: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
