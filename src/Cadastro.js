@@ -29,6 +29,7 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.titulo}>Registrar</Text>
       <Text style={styles.subtitulo}>Usuário</Text>
+      <TextInput style={styles.input} />
       <Text style={styles.subtitulo}>E-mail</Text>
       <TextInput style={styles.input} />
       <Text style={styles.subtitulo}>Senha</Text>
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    padding: 40,
+    paddingHorizontal: 40,
     gap: 18,
   },
   titulo: {
@@ -92,27 +93,21 @@ const styles = StyleSheet.create({
   },
   containerLogo: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     marginTop: 5,
+    gap: 10,
   },
   logo: {
     width: 40,
     height: 40,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 10,
-  },
-  recuperarSenha: {
-    marginBottom: 20,
-    fontSize: 16,
-    color: '#2F80ED',
-    alignSelf: 'flex-end',
-    fontFamily: 'Nunito_700Bold',
+    marginRight: 4,
   },
   registrarLink: {
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     fontSize: 18,
     color: '#2F80ED',
     alignSelf: 'flex-start',
