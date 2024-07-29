@@ -1,0 +1,38 @@
+<body>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyC9SJambY_DHY7_p7ACIP5T50PQiR913rQ",
+          authDomain: "pmovel-lobby.firebaseapp.com",
+          projectId: "pmovel-lobby",
+          storageBucket: "pmovel-lobby.appspot.com",
+          messagingSenderId: "625010233535",
+          appId: "1:625010233535:web:bc038dba9133604b4d760a"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, 'marcosanthony202@gmail.com', 'marc202')
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user);
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error(errorCode);
+            console.error(errorMessage);
+        });
+      </script>
+</body>
