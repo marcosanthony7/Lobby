@@ -73,7 +73,7 @@ export default function App() {
             <Text style={styles.participantesComunidade}>2.000.000 de participantes</Text>
           </View>
           <View style={styles.buttonCard}>
-            <Button title="Seguindo" color="#2F80ED" />
+            <Button title="Seguir" color="#7C7C7C" />
           </View>
         </View>
         <View style={styles.card}>
