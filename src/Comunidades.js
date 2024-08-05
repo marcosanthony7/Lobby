@@ -29,6 +29,9 @@ export default function App() {
     <View>
       <View style={styles.header}>
         <Text style={styles.titulo}>Comunidades</Text>
+        <View style={styles.buttonHeader}>
+          <Button title="Sair" color="#000000" />
+        </View>
       </View>
       <View style={styles.container}>
         <View style={styles.card}>
@@ -116,6 +119,14 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#2F80ED',
     padding: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonHeader: {
+    position: 'absolute',
+    width: '20%',
+    right: 30,
+    top: 30,
   },
   titulo: {
     fontSize: 30,
