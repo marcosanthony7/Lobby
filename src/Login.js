@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, Image, Text, TextInput, View } from 'react-native';
+import { auth } from '../firebaseConfig';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,6 +27,22 @@ export default function App() {
     return null;
   }
 
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, "marcosanthony202@gmail.com", "marc202")
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode);
+      console.error(errorMessage);
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Logar</Text>
@@ -33,7 +51,7 @@ export default function App() {
       <Text style={styles.subtitulo}>Senha</Text>
       <TextInput style={styles.input} secureTextEntry={true} />
       <View style={{ width: '100%' }}>
-        <Button title="Logar" color="#2F80ED" />
+        <Button title="Logar" color="#2F80ED" onPress={handleLogin}/>
       </View>
       <View style={styles.containerLogo}>
         <Image
