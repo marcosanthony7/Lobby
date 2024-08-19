@@ -4,6 +4,7 @@ import { auth } from '../firebaseConfig';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
 import { TextInput } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
