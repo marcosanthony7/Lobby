@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, Text, View, Image } from 'react-native';
-import { auth } from '../firebaseConfig';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from 'expo-router';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
-import { Link, useRouter } from 'expo-router';
-import { FirebaseError } from 'firebase/app';
+import { auth } from '../firebaseConfig';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -33,19 +32,19 @@ export default function App() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [repetirSenha, setRepetirSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async () => {
+  const handleCadastrar = async () => {
     try {
       setLoading(true);
-      const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-      // Signed in
-      const user = userCredential.user;
-      console.log(user);
+      await createUserWithEmailAndPassword(auth, email, senha);
+      // Signed up
       router.replace('/home');
     } catch (error) {
-      Alert.alert('Erro', error.message)
+      console.error(error.code);
+      console.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -58,8 +57,10 @@ export default function App() {
       <TextInput style={styles.input} label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' />
       <Text style={styles.subtitulo}>Senha</Text>
       <TextInput style={styles.input} label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} />
+      <Text style={styles.subtitulo}>Repetir Senha</Text>
+      <TextInput style={styles.input} label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} />
       <View style={{ width: '100%' }}>
-        <Button title="Logar" color="#2F80ED" onPress={handleLogin} loading={isLoading}/>
+        <Button title="Cadastrar" color="#2F80ED" onPress={handleCadastrar} loading={isLoading}/>
       </View>
       <View style={styles.containerLogo}>
         <Image
@@ -80,9 +81,10 @@ export default function App() {
             uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
           }}
         />
-        <Text style={styles.recuperarSenha}>Esqueceu a senha?</Text>
       </View>
-      <Link href='/cadastro'>Novo? Cadastrar-se</Link>
+      <View>
+        <Text style={styles.cadastrarLink}>Já tem uma conta? Logar-se</Text>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
