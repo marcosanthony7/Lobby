@@ -1,24 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { auth } from '../firebaseConfig';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 
 import { Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+export default function Cadastro() {
   const [loaded, error] = useFonts({
     Nunito_400Regular,
     Nunito_700Bold,
   });
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [repetirSenha, setRepetirSenha] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (loaded || error) {
@@ -29,12 +34,6 @@ export default function App() {
   if (!loaded && !error) {
     return null;
   }
-
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [repetirSenha, setRepetirSenha] = useState('');
-  const [isLoading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleCadastrar = async () => {
     try {
@@ -52,16 +51,14 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Logar</Text>
+      <Text style={styles.titulo}>Cadastrar</Text>
       <Text style={styles.subtitulo}>E-mail</Text>
-      <TextInput style={styles.input} label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' />
+      <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} />
       <Text style={styles.subtitulo}>Senha</Text>
-      <TextInput style={styles.input} label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} />
+      <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} />
       <Text style={styles.subtitulo}>Repetir Senha</Text>
-      <TextInput style={styles.input} label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} />
-      <View style={{ width: '100%' }}>
-        <Button title="Cadastrar" color="#2F80ED" onPress={handleCadastrar} loading={isLoading}/>
-      </View>
+      <TextInput label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} style={styles.input} />
+      <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>Cadastrar</Button>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
@@ -81,9 +78,6 @@ export default function App() {
             uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
           }}
         />
-      </View>
-      <View>
-        <Text style={styles.cadastrarLink}>Já tem uma conta? Logar-se</Text>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -128,20 +122,8 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 10,
   },
-  recuperarSenha: {
-    marginBottom: 20,
-    fontSize: 16,
-    color: '#2F80ED',
-    alignSelf: 'flex-end',
-    fontFamily: 'Nunito_700Bold',
-  },
-  cadastrarLink: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 18,
-    color: '#2F80ED',
-    alignSelf: 'flex-start',
-    fontFamily: 'Nunito_700Bold',
-  },
+  button: {
+    borderRadius: 10,
+    padding: 8,
+  }
 });

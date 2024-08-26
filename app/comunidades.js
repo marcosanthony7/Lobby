@@ -9,7 +9,7 @@ import { Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function App() {
+export default function Comunidades() {
   const [loaded, error] = useFonts({
     Roboto_500Medium,
     Roboto_700Bold,

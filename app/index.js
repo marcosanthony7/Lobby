@@ -2,14 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { Alert, StyleSheet, Text, View, Image } from 'react-native';
 import { auth } from '../firebaseConfig';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, TextInput } from 'react-native-paper';
 import { Link, useRouter } from 'expo-router';
 import { FirebaseError } from 'firebase/app';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 
 import { Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 
@@ -21,6 +20,11 @@ export default function App() {
     Nunito_700Bold,
   });
 
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
@@ -30,11 +34,6 @@ export default function App() {
   if (!loaded && !error) {
     return null;
   }
-
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [isLoading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleLogin = async () => {
     try {
@@ -55,12 +54,10 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.titulo}>Logar</Text>
       <Text style={styles.subtitulo}>E-mail</Text>
-      <TextInput style={styles.input} label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' />
+      <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} />
       <Text style={styles.subtitulo}>Senha</Text>
-      <TextInput style={styles.input} label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} />
-      <View style={{ width: '100%' }}>
-        <Button title="Logar" color="#2F80ED" onPress={handleLogin} loading={isLoading}/>
-      </View>
+      <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} />
+      <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>Logar</Button>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
@@ -82,7 +79,7 @@ export default function App() {
         />
         <Text style={styles.recuperarSenha}>Esqueceu a senha?</Text>
       </View>
-      <Link href='/cadastro'>Novo? Cadastrar-se</Link>
+      <Link href='/cadastro' style={styles.link}>Novo? Cadastrar-se</Link>
       <StatusBar style="auto" />
     </View>
   );
@@ -133,13 +130,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     fontFamily: 'Nunito_700Bold',
   },
-  cadastrarLink: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    fontSize: 18,
+  link: {
+    fontSize: 16,
     color: '#2F80ED',
-    alignSelf: 'flex-start',
     fontFamily: 'Nunito_700Bold',
   },
+  button: {
+    borderRadius: 10,
+    padding: 8,
+  }
 });
