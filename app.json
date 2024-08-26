@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Lobby",
-    "slug": "Lobby",
+    "name": "pmovel-lobby",
+    "slug": "pmovel-lobby",
     "version": "1.0.0",
-    "scheme": "my-app",
+    "scheme": "pmovel-lobby",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
