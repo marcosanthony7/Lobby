@@ -1,5 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, Image, Text, View } from 'react-native';
+import { StyleSheet, Image, Text, View } from 'react-native';
+import { auth } from '../firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'expo-router';
+import { Button } from 'react-native-paper';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,13 +29,18 @@ export default function Comunidades() {
     return null;
   }
 
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.replace('/');
+  }
+
   return (
     <View>
       <View style={styles.header}>
-        <Text style={styles.titulo}>Comunidades</Text>
-        <View style={styles.buttonHeader}>
-          <Button title="Sair" color="#000000" />
-        </View>
+        <Text style={styles.tituloHeader}>Comunidades</Text>
+        <Button onPress={handleLogout} buttonColor='#000000' textColor='#FFFFFF' style={styles.buttonHeader}>Sair</Button>
       </View>
       <View style={styles.container}>
         <View style={styles.card}>
@@ -45,9 +54,7 @@ export default function Comunidades() {
             <Text style={styles.nomeComunidade}>Valorant BR</Text>
             <Text style={styles.participantesComunidade}>6.000.000 de participantes</Text>
           </View>
-          <View style={styles.buttonCard}>
-            <Button title="Seguindo" color="#2F80ED" />
-          </View>
+          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>Seguir</Button>
         </View>
         <View style={styles.card}>
           <Image
@@ -60,9 +67,7 @@ export default function Comunidades() {
             <Text style={styles.nomeComunidade}>League Of Legends BR</Text>
             <Text style={styles.participantesComunidade}>8.000.000 de participantes</Text>
           </View>
-          <View style={styles.buttonCard}>
-            <Button title="Seguir" color="#7C7C7C" />
-          </View>
+          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>Seguir</Button>
         </View>
         <View style={styles.card}>
           <Image
@@ -75,9 +80,7 @@ export default function Comunidades() {
             <Text style={styles.nomeComunidade}>CS:GO BR</Text>
             <Text style={styles.participantesComunidade}>2.000.000 de participantes</Text>
           </View>
-          <View style={styles.buttonCard}>
-            <Button title="Seguir" color="#7C7C7C" />
-          </View>
+          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>Seguir</Button>
         </View>
         <View style={styles.card}>
           <Image
@@ -90,9 +93,7 @@ export default function Comunidades() {
             <Text style={styles.nomeComunidade}>Fortnite BR</Text>
             <Text style={styles.participantesComunidade}>4.000.000 de participantes</Text>
           </View>
-          <View style={styles.buttonCard}>
-            <Button title="Seguir" color="#7C7C7C" />
-          </View>
+          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>Seguir</Button>
         </View>
         <View style={styles.card}>
           <Image
@@ -105,9 +106,7 @@ export default function Comunidades() {
             <Text style={styles.nomeComunidade}>Rocket League BR</Text>
             <Text style={styles.participantesComunidade}>1.000.000 de participantes</Text>
           </View>
-          <View style={styles.buttonCard}>
-            <Button title="Seguir" color="#7C7C7C" />
-          </View>
+          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>Seguir</Button>
         </View>
       </View>
       <StatusBar style="auto" />
@@ -122,16 +121,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  tituloHeader: {
+    fontSize: 30,
+    fontFamily: 'Roboto_700Bold',
+    color: '#FFFFFF'
+  },
   buttonHeader: {
     position: 'absolute',
     width: '20%',
     right: 30,
     top: 30,
-  },
-  titulo: {
-    fontSize: 30,
-    fontFamily: 'Roboto_700Bold',
-    color: '#FFFFFF'
+    borderRadius: 10,
+    padding: 8,
   },
   container: {
     padding: 30,
@@ -153,6 +154,8 @@ const styles = StyleSheet.create({
   buttonCard: {
     justifyContent: 'center',
     width: '30%',
+    borderRadius: 10,
+    padding: 8,
   },
   nomeComunidade: {
     fontSize: 20,

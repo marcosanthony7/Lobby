@@ -40,7 +40,7 @@ export default function Cadastro() {
       setLoading(true);
       await createUserWithEmailAndPassword(auth, email, senha);
       // Signed up
-      router.replace('/home');
+      router.replace('/index');
     } catch (error) {
       console.error(error.code);
       console.error(error.message);
@@ -53,11 +53,11 @@ export default function Cadastro() {
     <View style={styles.container}>
       <Text style={styles.titulo}>Cadastrar</Text>
       <Text style={styles.subtitulo}>E-mail</Text>
-      <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} />
+      <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Senha</Text>
-      <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} />
+      <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Repetir Senha</Text>
-      <TextInput label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} style={styles.input} />
+      <TextInput label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>Cadastrar</Button>
       <View style={styles.containerLogo}>
         <Image

@@ -42,7 +42,7 @@ export default function App() {
       // Signed in
       const user = userCredential.user;
       console.log(user);
-      router.replace('/home');
+      router.replace('/comunidades');
     } catch (error) {
       Alert.alert('Erro', error.message)
     } finally {
@@ -54,9 +54,9 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.titulo}>Logar</Text>
       <Text style={styles.subtitulo}>E-mail</Text>
-      <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} />
+      <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Senha</Text>
-      <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} />
+      <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>Logar</Button>
       <View style={styles.containerLogo}>
         <Image
