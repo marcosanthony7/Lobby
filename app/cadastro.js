@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { useRouter } from 'expo-router';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { useEffect, useState } from 'react';
+import { useRouter, Link } from 'expo-router';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
 import { auth } from '../firebaseConfig';
 
 import { useFonts } from 'expo-font';
@@ -14,16 +13,16 @@ import { Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 SplashScreen.preventAutoHideAsync();
 
 export default function Cadastro() {
-  const [loaded, error] = useFonts({
-    Nunito_400Regular,
-    Nunito_700Bold,
-  });
-
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [repetirSenha, setRepetirSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
   const router = useRouter();
+
+  const [loaded, error] = useFonts({
+    Nunito_400Regular,
+    Nunito_700Bold,
+  });
 
   useEffect(() => {
     if (loaded || error) {
@@ -40,7 +39,7 @@ export default function Cadastro() {
       setLoading(true);
       await createUserWithEmailAndPassword(auth, email, senha);
       // Signed up
-      router.replace('/index');
+      router.replace('/');
     } catch (error) {
       console.error(error.code);
       console.error(error.message);
@@ -58,7 +57,7 @@ export default function Cadastro() {
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Repetir Senha</Text>
       <TextInput label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
-      <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>Cadastrar</Button>
+      <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>CADASTRAR</Button>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
@@ -78,8 +77,8 @@ export default function Cadastro() {
             uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
           }}
         />
+      <Link href='/' style={styles.link}>Já tem conta? Logar-se</Link>
       </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    padding: 40,
+    padding: 30,
     gap: 18,
   },
   titulo: {
@@ -98,17 +97,19 @@ const styles = StyleSheet.create({
     color: '#2F80ED',
   },
   subtitulo: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Nunito_400Regular',
     color: '#2F80ED',
   },
   input: {
     borderWidth: 2,
-    borderRadius: 10,
     borderColor: '#2F80ED',
-    padding: 6,
-    paddingLeft: 10,
+    paddingBottom: 4,
     width: '100%',
+  },
+  button: {
+    borderRadius: 10,
+    padding: 8,
   },
   containerLogo: {
     flexDirection: 'row',
@@ -122,8 +123,11 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 10,
   },
-  button: {
-    borderRadius: 10,
-    padding: 8,
-  }
+  link: {
+    marginBottom: 20,
+    fontSize: 18,
+    color: '#2F80ED',
+    alignSelf: 'flex-end',
+    fontFamily: 'Nunito_700Bold',
+  },
 });

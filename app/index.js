@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, StyleSheet, Text, View, Image } from 'react-native';
-import { auth } from '../firebaseConfig';
+import { View, Text, Image, StyleSheet, Alert } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { useEffect, useState } from 'react';
+import { useRouter, Link } from 'expo-router';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState, useEffect } from 'react';
-import { Button, TextInput } from 'react-native-paper';
-import { Link, useRouter } from 'expo-router';
+import { auth } from '../firebaseConfig';
 import { FirebaseError } from 'firebase/app';
 
 import { useFonts } from 'expo-font';
@@ -15,15 +15,15 @@ import { Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [loaded, error] = useFonts({
-    Nunito_400Regular,
-    Nunito_700Bold,
-  });
-
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
   const router = useRouter();
+
+  const [loaded, error] = useFonts({
+    Nunito_400Regular,
+    Nunito_700Bold,
+  });
 
   useEffect(() => {
     if (loaded || error) {
@@ -42,7 +42,7 @@ export default function App() {
       // Signed in
       const user = userCredential.user;
       console.log(user);
-      router.replace('/comunidades');
+      router.replace('/home');
     } catch (error) {
       Alert.alert('Erro', error.message)
     } finally {
@@ -57,7 +57,7 @@ export default function App() {
       <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Senha</Text>
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
-      <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>Logar</Button>
+      <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>LOGAR</Button>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    padding: 40,
+    padding: 30,
     gap: 18,
   },
   titulo: {
@@ -99,17 +99,19 @@ const styles = StyleSheet.create({
     color: '#2F80ED',
   },
   subtitulo: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Nunito_400Regular',
     color: '#2F80ED',
   },
   input: {
     borderWidth: 2,
-    borderRadius: 10,
     borderColor: '#2F80ED',
-    padding: 6,
-    paddingLeft: 10,
+    paddingBottom: 4,
     width: '100%',
+  },
+  button: {
+    borderRadius: 10,
+    padding: 8,
   },
   containerLogo: {
     flexDirection: 'row',
@@ -125,18 +127,14 @@ const styles = StyleSheet.create({
   },
   recuperarSenha: {
     marginBottom: 20,
-    fontSize: 16,
+    fontSize: 18,
     color: '#2F80ED',
     alignSelf: 'flex-end',
     fontFamily: 'Nunito_700Bold',
   },
   link: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#2F80ED',
     fontFamily: 'Nunito_700Bold',
   },
-  button: {
-    borderRadius: 10,
-    padding: 8,
-  }
 });
