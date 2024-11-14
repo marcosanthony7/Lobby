@@ -1,8 +1,6 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { FlatList, View, Text, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { auth } from '../firebaseConfig';
-import { signOut } from 'firebase/auth';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -30,84 +28,38 @@ export default function Home() {
     return null;
   }
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    router.replace('/');
-  }
+  const comunidades = [
+    { nome: 'Valorant BR', participantes: '4.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+    { nome: 'Fortnite BR', participantes: '2.000.000', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortnite_F_lettermark_logo.png' },
+    { nome: 'CS:GO BR', participantes: '1.000.000', logo: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/1e9117ff-a155-4cdd-9a93-8e176fc2fe1a/deh2wni-a79e8ea5-14a5-445f-8da4-c48ea97c037b.png' },
+    { nome: 'League Of Legends BR', participantes: '3.000.000', logo: 'https://pentagram-production.imgix.net/cc7fa9e7-bf44-4438-a132-6df2b9664660/EMO_LOL_02.jpg?rect=0%2C0%2C1440%2C1512&w=640&crop=1&fm=jpg&q=70&auto=format&fit=crop&h=672' },
+    { nome: 'Rocket League BR', participantes: '500.000', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Rocket_League_coverart.jpg' },
+  ];
 
   return (
     <View>
       <View style={styles.header}>
         <Text style={styles.tituloHeader}>Comunidades</Text>
-        <Button onPress={handleLogout} buttonColor='#000000' textColor='#FFFFFF' style={styles.buttonHeader}>SAIR</Button>
+        <Button buttonColor='#000000' textColor='#FFFFFF' style={styles.buttonHeader} onPress={() => router.push('/perfil')}>PERFIL</Button>
       </View>
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true',
-            }}
-          />
-          <View style={styles.infoCard}>
-            <Text style={styles.nomeComunidade}>Valorant BR</Text>
-            <Text style={styles.participantesComunidade}>6.000.000 de participantes</Text>
+      <FlatList
+        style={styles.container}
+        data={comunidades}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <Image
+              style={styles.logo}
+              source={{ uri: item.logo }}
+            />
+            <View style={styles.infoCard}>
+              <Text style={styles.nomeComunidade}>{item.nome}</Text>
+              <Text style={styles.participantesComunidade}>{item.participantes} de participantes</Text>
+            </View>
+            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
           </View>
-          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
-        </View>
-        <View style={styles.card}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://pentagram-production.imgix.net/cc7fa9e7-bf44-4438-a132-6df2b9664660/EMO_LOL_02.jpg?rect=0%2C0%2C1440%2C1512&w=640&crop=1&fm=jpg&q=70&auto=format&fit=crop&h=672',
-            }}
-          />
-          <View style={styles.infoCard}>
-            <Text style={styles.nomeComunidade}>League Of Legends BR</Text>
-            <Text style={styles.participantesComunidade}>8.000.000 de participantes</Text>
-          </View>
-          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
-        </View>
-        <View style={styles.card}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/1e9117ff-a155-4cdd-9a93-8e176fc2fe1a/deh2wni-a79e8ea5-14a5-445f-8da4-c48ea97c037b.png',
-            }}
-          />
-          <View style={styles.infoCard}>
-            <Text style={styles.nomeComunidade}>CS:GO BR</Text>
-            <Text style={styles.participantesComunidade}>2.000.000 de participantes</Text>
-          </View>
-          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
-        </View>
-        <View style={styles.card}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortnite_F_lettermark_logo.png',
-            }}
-          />
-          <View style={styles.infoCard}>
-            <Text style={styles.nomeComunidade}>Fortnite BR</Text>
-            <Text style={styles.participantesComunidade}>4.000.000 de participantes</Text>
-          </View>
-          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
-        </View>
-        <View style={styles.card}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Rocket_League_coverart.jpg',
-            }}
-          />
-          <View style={styles.infoCard}>
-            <Text style={styles.nomeComunidade}>Rocket League BR</Text>
-            <Text style={styles.participantesComunidade}>1.000.000 de participantes</Text>
-          </View>
-          <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
-        </View>
-      </View>
+        )}
+        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+      />
     </View>
   );
 }
@@ -134,7 +86,6 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 30,
-    gap: 20,
   },
   card: {
     flexDirection: 'row',
