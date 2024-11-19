@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '30%',
         right: 30,
-        top: 30,
+        top: 28,
         borderRadius: 10,
         padding: 2,
     },
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'Rubik_500Medium',
         color: '#7C7C7C',
-        marginTop: 20,
+        marginTop: 10,
     },
 });
