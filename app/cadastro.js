@@ -77,7 +77,7 @@ export default function Cadastro() {
             uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
           }}
         />
-      <Link href='/' style={styles.link}>Já tem conta? Logar-se</Link>
+        <Link href='/' style={styles.link}>Já tem conta? Logar-se</Link>
       </View>
     </View>
   );

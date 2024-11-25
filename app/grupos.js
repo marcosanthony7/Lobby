@@ -61,7 +61,7 @@ export default function Home() {
               <Text style={styles.nomeGrupo}>{item.nome}</Text>
               <Text style={styles.participantesGrupo}>{item.participantes} de participantes</Text>
             </View>
-            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard}>SEGUIR</Button>
+            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard} onPress={() => router.push('/chatGrupo')}>SEGUIR</Button>
           </View>
         )}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
