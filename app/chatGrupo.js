@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 
 import { useFonts } from 'expo-font';
@@ -44,6 +45,7 @@ export default function Home() {
                 </View>
             </View>
             <TextInput style={styles.inputMensagem} placeholder="Digitar" placeholderTextColor="#7C7C7C" />
+            <StatusBar style="auto" />
         </View>
     );
 }

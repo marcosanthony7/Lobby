@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
@@ -47,6 +48,7 @@ export default function Perfil() {
                 <Text style={styles.textEmail}>{user.email}</Text>
                 <Text style={styles.descricao}>Descrição</Text>
             </View>
+            <StatusBar style="auto" />
         </View>
     );
 }

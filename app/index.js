@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { useRouter, Link } from 'expo-router';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
-import { FirebaseError } from 'firebase/app';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';

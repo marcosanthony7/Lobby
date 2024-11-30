@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { FlatList, ScrollView, View, Text, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
@@ -67,6 +68,7 @@ export default function Home() {
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         scrollEnabled={false}
       />
+      <StatusBar style="auto" />
     </ScrollView>
   );
 }

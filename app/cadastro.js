@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useEffect, useState } from 'react';
@@ -79,6 +80,7 @@ export default function Cadastro() {
         />
         <Link href='/' style={styles.link}>Já tem conta? Logar-se</Link>
       </View>
+      <StatusBar style="auto" />
     </View>
   );
 }
