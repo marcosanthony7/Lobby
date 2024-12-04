@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, Image, StyleSheet, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useEffect, useState } from 'react';
 import { useRouter, Link } from 'expo-router';
@@ -56,7 +56,7 @@ export default function App() {
       <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Senha</Text>
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
-      <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>LOGAR</Button>
+      <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button} disabled={isLoading}>LOGAR</Button>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
@@ -140,5 +140,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#2F80ED',
     fontFamily: 'Nunito_700Bold',
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useEffect, useState } from 'react';
 import { useRouter, Link } from 'expo-router';
@@ -58,7 +58,7 @@ export default function Cadastro() {
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Repetir Senha</Text>
       <TextInput label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
-      <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>CADASTRAR</Button>
+      <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button} disabled={isLoading}>CADASTRAR</Button>
       <View style={styles.containerLogo}>
         <Image
           style={styles.logo}
@@ -136,5 +136,15 @@ const styles = StyleSheet.create({
     color: '#2F80ED',
     alignSelf: 'flex-end',
     fontFamily: 'Nunito_700Bold',
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
