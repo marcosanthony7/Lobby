@@ -76,9 +76,14 @@ export default function App() {
             uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
           }}
         />
-        <Text style={styles.recuperarSenha}>Esqueceu a senha?</Text>
+        {/* <Text style={styles.recuperarSenha}>Esqueceu a senha?</Text> */}
       </View>
       <Link href='/cadastro' style={styles.link}>Novo? Cadastrar-se</Link>
+      {isLoading && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#2F80ED" />
+        </View>
+      )}
       <StatusBar style="auto" />
     </View>
   );
@@ -124,13 +129,13 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 10,
   },
-  recuperarSenha: {
-    marginBottom: 20,
-    fontSize: 18,
-    color: '#2F80ED',
-    alignSelf: 'flex-end',
-    fontFamily: 'Nunito_700Bold',
-  },
+  // recuperarSenha: {
+  //   marginBottom: 20,
+  //   fontSize: 18,
+  //   color: '#2F80ED',
+  //   alignSelf: 'flex-end',
+  //   fontFamily: 'Nunito_700Bold',
+  // },
   link: {
     fontSize: 18,
     color: '#2F80ED',

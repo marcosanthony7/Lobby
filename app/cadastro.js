@@ -80,6 +80,11 @@ export default function Cadastro() {
         />
         <Link href='/' style={styles.link}>Já tem conta? Logar-se</Link>
       </View>
+      {isLoading && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#2F80ED" />
+        </View>
+      )}
       <StatusBar style="auto" />
     </View>
   );

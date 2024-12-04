@@ -29,6 +29,7 @@ export default function Home() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.tituloHeader}>Chat</Text>
+                <Button buttonColor='#000000' textColor='#FFFFFF' style={styles.buttonHeader} onPress={() => router.push('/grupos')}>GRUPOS</Button>
             </View>
             <View style={styles.infoGrupo}>
                 <Text style={styles.nomeGrupo}>Vavazinho</Text>
@@ -63,6 +64,14 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: 'Roboto_700Bold',
         color: '#FFFFFF',
+    },
+    buttonHeader: {
+        position: 'absolute',
+        width: '30%',
+        right: 30,
+        top: 30,
+        borderRadius: 10,
+        padding: 2,
     },
     infoGrupo: {
         padding: 30,

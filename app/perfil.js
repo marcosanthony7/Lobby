@@ -46,7 +46,7 @@ export default function Perfil() {
             <View style={styles.container}>
                 <Text style={styles.textId}>{user.uid}</Text>
                 <Text style={styles.textEmail}>{user.email}</Text>
-                <Text style={styles.descricao}>Descrição</Text>
+                {/* <Text style={styles.descricao}>Descrição</Text> */}
             </View>
             <StatusBar style="auto" />
         </View>
@@ -84,10 +84,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Rubik_500Medium',
         color: '#7C7C7C',
     },
-    descricao: {
-        fontSize: 18,
-        fontFamily: 'Rubik_500Medium',
-        color: '#7C7C7C',
-        marginTop: 10,
-    },
+    // descricao: {
+    //     fontSize: 18,
+    //     fontFamily: 'Rubik_500Medium',
+    //     color: '#7C7C7C',
+    //     marginTop: 10,
+    // },
 });
