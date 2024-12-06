@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, Image, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useEffect, useState } from 'react';
 import { useRouter, Link } from 'expo-router';
@@ -57,27 +57,6 @@ export default function App() {
       <Text style={styles.subtitulo}>Senha</Text>
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button} disabled={isLoading}>LOGAR</Button>
-      <View style={styles.containerLogo}>
-        <Image
-          style={styles.logo}
-          source={{
-            uri: 'https://t.ctcdn.com.br/mnCwSs6r1zVZvoeNtKOa9JSXs_g=/600x600/smart/i606944.png',
-          }}
-        />
-        <Image
-          style={styles.logo}
-          source={{
-            uri: 'https://t.ctcdn.com.br/DMxRsoFn2EzzWk6WaToT6sIidL8=/i489928.jpeg',
-          }}
-        />
-        <Image
-          style={styles.logo}
-          source={{
-            uri: 'https://t.ctcdn.com.br/aFp_I8ScTJJch32H29ImNebDEYU=/i489949.jpeg',
-          }}
-        />
-        {/* <Text style={styles.recuperarSenha}>Esqueceu a senha?</Text> */}
-      </View>
       <Link href='/cadastro' style={styles.link}>Novo? Cadastrar-se</Link>
       {isLoading && (
         <View style={styles.loadingOverlay}>
@@ -117,25 +96,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 8,
   },
-  containerLogo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 10,
-  },
-  // recuperarSenha: {
-  //   marginBottom: 20,
-  //   fontSize: 18,
-  //   color: '#2F80ED',
-  //   alignSelf: 'flex-end',
-  //   fontFamily: 'Nunito_700Bold',
-  // },
   link: {
     fontSize: 18,
     color: '#2F80ED',

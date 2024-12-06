@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -10,6 +12,8 @@ import { Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 SplashScreen.preventAutoHideAsync();
 
 export default function Home() {
+    const router = useRouter();
+
     const [loaded, error] = useFonts({
         Roboto_500Medium,
         Roboto_700Bold,
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
         left: 30,
         right: 30,
         backgroundColor: '#D9D9D9',
-        padding: 14,
+        padding: 12,
         fontSize: 20,
         fontFamily: 'Roboto_500Medium',
         borderWidth: 1,
