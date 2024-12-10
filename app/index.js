@@ -56,7 +56,7 @@ export default function App() {
       <TextInput label="Email" value={email} onChangeText={setEmail} keyboardType='email-address' style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Senha</Text>
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
-      <Button onPress={handleLogin} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button} disabled={isLoading}>LOGAR</Button>
+      <Button onPress={handleLogin} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>LOGAR</Button>
       <Link href='/cadastro' style={styles.link}>Novo? Cadastrar-se</Link>
       {isLoading && (
         <View style={styles.loadingOverlay}>

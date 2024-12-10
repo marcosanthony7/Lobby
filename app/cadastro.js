@@ -58,7 +58,7 @@ export default function Cadastro() {
       <TextInput label="Senha" value={senha} onChangeText={setSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
       <Text style={styles.subtitulo}>Repetir Senha</Text>
       <TextInput label="Repetir Senha" value={repetirSenha} onChangeText={setRepetirSenha} secureTextEntry={true} style={styles.input} autoCapitalize={"none"} />
-      <Button onPress={handleCadastrar} loading={isLoading} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button} disabled={isLoading}>CADASTRAR</Button>
+      <Button onPress={handleCadastrar} buttonColor='#2F80ED' textColor='#FFFFFF' style={styles.button}>CADASTRAR</Button>
       <Link href='/' style={styles.link}>Já tem conta? Logar-se</Link>
       {isLoading && (
         <View style={styles.loadingOverlay}>

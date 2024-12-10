@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { FlatList, ScrollView, View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
+
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
@@ -13,6 +16,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function Home() {
   const router = useRouter();
+  const [comunidades, setComunidades] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const [loaded, error] = useFonts({
     Roboto_500Medium,
@@ -25,17 +30,47 @@ export default function Home() {
     }
   }, [loaded, error]);
 
+  useEffect(() => {
+    buscarComunidades();
+  }, []);
+
+  const buscarComunidades = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'comunidades'));
+      const dados = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setComunidades(dados);
+    } catch (err) {
+      console.error('Erro ao buscar comunidades:', err);
+    }
+  };
+
+  const seguirComunidade = async (comunidadeId) => {
+    try {
+      setLoading(true);
+      await addDoc(collection(db, 'seguidores'), { comunidadeId });
+      alert('Seguindo!');
+      router.push('/grupos');
+    } catch (err) {
+      console.error('Erro ao seguir comunidade:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!loaded && !error) {
     return null;
   }
 
-  const comunidades = [
-    { nome: 'Valorant BR', participantes: '4.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
-    { nome: 'League Of Legends BR', participantes: '3.000.000', logo: 'https://pentagram-production.imgix.net/cc7fa9e7-bf44-4438-a132-6df2b9664660/EMO_LOL_02.jpg?rect=0%2C0%2C1440%2C1512&w=640&crop=1&fm=jpg&q=70&auto=format&fit=crop&h=672' },
-    { nome: 'Fortnite BR', participantes: '2.000.000', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortnite_F_lettermark_logo.png' },
-    { nome: 'CS:GO BR', participantes: '1.000.000', logo: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/1e9117ff-a155-4cdd-9a93-8e176fc2fe1a/deh2wni-a79e8ea5-14a5-445f-8da4-c48ea97c037b.png' },
-    { nome: 'Rocket League BR', participantes: '500.000', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Rocket_League_coverart.jpg' },
-  ];
+  // const comunidades = [
+  //   { nome: 'Valorant BR', participantes: '4.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+  //   { nome: 'League Of Legends BR', participantes: '3.000.000', logo: 'https://pentagram-production.imgix.net/cc7fa9e7-bf44-4438-a132-6df2b9664660/EMO_LOL_02.jpg?rect=0%2C0%2C1440%2C1512&w=640&crop=1&fm=jpg&q=70&auto=format&fit=crop&h=672' },
+  //   { nome: 'Fortnite BR', participantes: '2.000.000', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortnite_F_lettermark_logo.png' },
+  //   { nome: 'CS:GO BR', participantes: '1.000.000', logo: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/1e9117ff-a155-4cdd-9a93-8e176fc2fe1a/deh2wni-a79e8ea5-14a5-445f-8da4-c48ea97c037b.png' },
+  //   { nome: 'Rocket League BR', participantes: '500.000', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Rocket_League_coverart.jpg' },
+  // ];
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -57,12 +92,17 @@ export default function Home() {
               <Text style={styles.nomeComunidade}>{item.nome}</Text>
               <Text style={styles.participantesComunidade}>{item.participantes} de participantes</Text>
             </View>
-            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard} onPress={() => router.push('/grupos')}>SEGUIR</Button>
+            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard} onPress={() => seguirComunidade(item.id)}>SEGUIR</Button>
           </View>
         )}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         scrollEnabled={false}
       />
+      {isLoading && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#2F80ED" />
+        </View>
+      )}
       <StatusBar style="auto" />
     </ScrollView>
   );
@@ -129,5 +169,15 @@ const styles = StyleSheet.create({
     width: '30%',
     borderRadius: 10,
     padding: 2,
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });

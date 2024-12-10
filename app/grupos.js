@@ -1,11 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, ScrollView, View, Text, Image, StyleSheet } from 'react-native';
+import { FlatList, ScrollView, View, Text, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
+
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto';
 
@@ -13,6 +16,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function Home() {
   const router = useRouter();
+  const [grupos, setGrupos] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const [loaded, error] = useFonts({
     Roboto_500Medium,
@@ -25,17 +30,47 @@ export default function Home() {
     }
   }, [loaded, error]);
 
+  useEffect(() => {
+    buscarGrupos();
+  }, []);
+
+  const buscarGrupos = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'grupos'));
+      const dados = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setGrupos(dados);
+    } catch (err) {
+      console.error('Erro ao buscar grupos:', err);
+    }
+  };
+
+  const seguirGrupo = async (grupoId) => {
+    try {
+      setLoading(true);
+      await addDoc(collection(db, 'seguidores'), { grupoId });
+      alert('Seguindo!');
+      router.push('/chatGrupo');
+    } catch (err) {
+      console.error('Erro ao seguir grupo:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!loaded && !error) {
     return null;
   }
 
-  const grupos = [
-    { nome: 'Vavazinho', participantes: '1.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
-    { nome: 'Carregados', participantes: '1.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
-    { nome: 'Zueira', participantes: '1.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
-    { nome: 'Pro Players', participantes: '500.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
-    { nome: 'Tryhards', participantes: '500.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
-  ];
+  // const grupos = [
+  //   { nome: 'Vavazinho', participantes: '1.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+  //   { nome: 'Carregados', participantes: '1.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+  //   { nome: 'Zueira', participantes: '1.000.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+  //   { nome: 'Pro Players', participantes: '500.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+  //   { nome: 'Tryhards', participantes: '500.000', logo: 'https://steamuserimages-a.akamaihd.net/ugc/1289667502762077035/0BBD690EF2F84B522A6E1D34EBE5F1513685C089/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true' },
+  // ];
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -62,12 +97,17 @@ export default function Home() {
               <Text style={styles.nomeGrupo}>{item.nome}</Text>
               <Text style={styles.participantesGrupo}>{item.participantes} de participantes</Text>
             </View>
-            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard} onPress={() => router.push('/chatGrupo')}>SEGUIR</Button>
+            <Button buttonColor='#7C7C7C' textColor='#FFFFFF' style={styles.buttonCard} onPress={() => seguirGrupo(item.id)}>SEGUIR</Button>
           </View>
         )}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         scrollEnabled={false}
       />
+      {isLoading && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color="#2F80ED" />
+        </View>
+      )}
       <StatusBar style="auto" />
     </ScrollView>
   );
@@ -151,5 +191,15 @@ const styles = StyleSheet.create({
     width: '30%',
     borderRadius: 10,
     padding: 2,
+  },
+  loadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
